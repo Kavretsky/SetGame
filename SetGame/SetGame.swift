@@ -8,14 +8,14 @@
 import Foundation
 
 struct SetGame {
-    struct CardContent {
+    struct CardContent: Equatable {
         var color: String
         var shape: String
         var numberOfShapes: Int
         var shading: String
     }
     
-    private let setColors = ["red", "green", "blue"]
+    private let setColors = ["mint", "purple", "blue"]
     private let setShapes = ["diamond", "oval", "squiggle"]
     private let setNumbersOfShapes = [1, 2 , 3]
     private let setShading = ["fill", "striped", "open"]

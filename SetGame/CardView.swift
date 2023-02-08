@@ -9,27 +9,35 @@ import SwiftUI
 
 struct CardView: View {
     let card: GameViewModel.Card
+    let isShowMatchingResult: Bool
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
-                    .fill().foregroundColor(.white)
+                    .fill().foregroundColor(card.isSelected ? Color(card.content.color) : .white)
+                    .opacity(card.isSelected ? CardViewConstants.stripedOpacityValue : 1)
                 RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
                     .strokeBorder(Color(card.content.color), lineWidth: CardViewConstants.lineWidth, antialiased: false)
                 VStack(spacing: CardViewConstants.itemSpacing) {
                     ForEach(0..<card.content.numberOfShapes, id: \.self) { _ in
                         ZStack {
                             AnyShape(cardShape)
-                                .stroke(Color(card.content.color), lineWidth: CardViewConstants.lineWidth)
-                            AnyShape(cardShape)
                                 .fill(card.content.shading != "open" ? Color(card.content.color) : .white)
                                 .opacity(card.content.shading != "striped" ? 1 : CardViewConstants.stripedOpacityValue)
+                            AnyShape(cardShape)
+                                .stroke(Color(card.content.color), lineWidth: CardViewConstants.lineWidth)
                         }
                         .aspectRatio(CardViewConstants.contentAspectRatio, contentMode: .fit)
                     }
+
                 }
                 .padding(geometry.size.height * CardViewConstants.shapesPaddingRatio)
+                if isShowMatchingResult && card.isSelected {
+                    RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
+                        .fill(card.isMatched ? .green : .red)
+                        .opacity(0.8)
+                }
             }
         }
     }
@@ -49,7 +57,7 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(card: .init(id: 1, content: .init(color: "green", shape: "diamond", numberOfShapes: 2, shading: "fill")))
+        CardView(card: .init(id: 1, content: .init(color: "green", shape: "diamond", numberOfShapes: 2, shading: "open")), isShowMatchingResult: true)
     }
 }
 
