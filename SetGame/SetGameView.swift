@@ -12,37 +12,27 @@ struct SetGameView: View {
     
     var body: some View {
         NavigationView{
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 60))]) {
-                    ForEach(game.cards, id: \.id) { card in
-                        CardView(card: card, isShowMatchingResult: game.isShowMatchingResult)
-                            .aspectRatio(2/3, contentMode: .fit)
-                            .onTapGesture {
-                                game.chose(card)
-                            }
+            AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
+                CardView(card: card, isShowMatchingResult: game.isShowMatchStatus)
+                    .onTapGesture {
+                        game.chose(card)
                     }
-                }
-                .padding()
             }
             .navigationTitle("Set Game")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
-                    Button(game.canAdd3Cards ? "Add 3 cards" : "no more cards in deck") {
+                    Button(game.canAdd3Cards ? "Deal 3 more cards" : "No more cards in deck") {
                         game.add3Cards()
                     }
                     .disabled(!game.canAdd3Cards)
-                    
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Text("Score: \(game.score)")
                 }
-                if !game.canAdd3Cards {
-                    ToolbarItem(placement: .automatic) {
-                        Button("New game") {
-                            game.newGame()
-                        }
-                        
+                ToolbarItem(placement: .automatic) {
+                    Button("New game") {
+                        game.newGame()
                     }
                 }
             }

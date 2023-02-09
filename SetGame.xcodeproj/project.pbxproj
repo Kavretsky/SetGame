@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		760A6B16299505960074186D /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760A6B15299505960074186D /* AspectVGrid.swift */; };
 		760DA0EC298EBDCC00069C1D /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0EB298EBDCC00069C1D /* GameModel.swift */; };
 		760DA0EE298EBFAF00069C1D /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0ED298EBFAF00069C1D /* GameViewModel.swift */; };
 		760DA0F0298EC9C900069C1D /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0EF298EC9C900069C1D /* SetGame.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		760A6B15299505960074186D /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		760DA0EB298EBDCC00069C1D /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		760DA0ED298EBFAF00069C1D /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		760DA0EF298EC9C900069C1D /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				76D76534298AEC2E001B6C2E /* SetGameApp.swift */,
 				76D76536298AEC2E001B6C2E /* SetGameView.swift */,
+				760A6B15299505960074186D /* AspectVGrid.swift */,
 				760DA0F22990352300069C1D /* CardView.swift */,
 				760DA0ED298EBFAF00069C1D /* GameViewModel.swift */,
 				760DA0EB298EBDCC00069C1D /* GameModel.swift */,
@@ -174,6 +177,7 @@
 				760DA0F52990356600069C1D /* SquiggleShapeView.swift in Sources */,
 				760DA0EC298EBDCC00069C1D /* GameModel.swift in Sources */,
 				760DA0F32990352300069C1D /* CardView.swift in Sources */,
+				760A6B16299505960074186D /* AspectVGrid.swift in Sources */,
 				760DA0EE298EBFAF00069C1D /* GameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

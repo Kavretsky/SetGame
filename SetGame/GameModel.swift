@@ -18,25 +18,30 @@ struct GameModel<CardContent: Equatable> {
         cardsOnBoard.indices.filter({cardsOnBoard[$0].isSelected})
     }
     
-    
     mutating func addNewCards() {
-        for _ in 0..<3 {
-            cardsOnBoard.append(cards.removeFirst())
+        if isMatchStatus, cardsOnBoard.first(where: {$0.isMatched == true}) != nil {
+            for index in selectedCardsIndex {
+                cardsOnBoard[index] = cards.removeFirst()
+            }
+        } else {
+            for _ in 0..<3 {
+                cardsOnBoard.append(cards.removeFirst())
+            }
         }
     }
     
+    var isMatchStatus: Bool {
+        selectedCardsIndex.count == 3
+    }
     
     mutating func chose(_ card: Card) {
         guard let chosenIndex = cardsOnBoard.firstIndex(where: {$0.id == card.id}),
             !cardsOnBoard[chosenIndex].isMatched
-        else {return}
-        
-        //MARK: BAGUS
-        guard !cardsOnBoard[chosenIndex].isSelected else {
-            cardsOnBoard[chosenIndex].isSelected.toggle()
+        else {
+            addNewCards()
             return
         }
-
+        
         if selectedCardsIndex.count == 2 {
             let secondSelectedCardIndex = selectedCardsIndex.last!
             let firstSelectedCardIndex = selectedCardsIndex.first!
@@ -48,7 +53,6 @@ struct GameModel<CardContent: Equatable> {
             } else {
                 score -= 1
             }
-            
         } else if selectedCardsIndex.count == 3 {
             for index in cardsOnBoard.indices {
                 cardsOnBoard[index].isSelected = false
@@ -58,8 +62,6 @@ struct GameModel<CardContent: Equatable> {
             }
         }
         cardsOnBoard[chosenIndex].isSelected.toggle()
-        
-
     }
     
     init(numberOfCards: Int, createCardContent: (Int) -> CardContent, cardsMatchRule: @escaping (CardContent, CardContent, CardContent) -> Bool) {
@@ -81,7 +83,6 @@ struct GameModel<CardContent: Equatable> {
         let id: Int
         var isMatched: Bool = false
         var isSelected: Bool = false
-        var isOnBoard: Bool = false
         let content: CardContent
         
         init(id: Int, content: CardContent) {

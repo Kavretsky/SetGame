@@ -9,16 +9,16 @@ import Foundation
 
 struct SetGame {
     struct CardContent: Equatable {
-        var color: String
-        var shape: String
+        var color: SetColor
+        var shape: SetShape
         var numberOfShapes: Int
-        var shading: String
+        var shading: SetShading
     }
     
-    private let setColors = ["mint", "purple", "blue"]
-    private let setShapes = ["diamond", "oval", "squiggle"]
+    private let setColors: [SetColor] = [.mint, .purple, .blue]
+    private let setShapes: [SetShape] = [.diamond, .oval, .squiggle]
     private let setNumbersOfShapes = [1, 2 , 3]
-    private let setShading = ["fill", "striped", "open"]
+    private let setShading: [SetShading] = [.fill, .open, .striped]
     
     private(set) var content: [CardContent]
     
@@ -34,6 +34,18 @@ struct SetGame {
             }
         }
         self.content = content
+    }
+    
+    enum SetShape {
+        case diamond, oval, squiggle
+    }
+    
+    enum SetColor {
+        case mint, purple, blue
+    }
+    
+    enum SetShading {
+        case fill, striped, open
     }
     
 }

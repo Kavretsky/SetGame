@@ -18,9 +18,9 @@ class GameViewModel: ObservableObject {
         return GameModel(numberOfCards: numberOfCards) { index in
             cardContent[index]
         } cardsMatchRule: { card1, card2, card3 in
-            let colorsSet: Set<String> = [card1.color, card2.color, card3.color]
-            let shapeSet: Set<String> = [card1.shape, card2.shape, card3.shape]
-            let shadingSet: Set<String> = [card1.shading, card2.shading, card3.shading]
+            let colorsSet: Set<SetGame.SetColor> = [card1.color, card2.color, card3.color]
+            let shapeSet: Set<SetGame.SetShape> = [card1.shape, card2.shape, card3.shape]
+            let shadingSet: Set<SetGame.SetShading> = [card1.shading, card2.shading, card3.shading]
             let numberOfShapesSet: Set<Int> = [card1.numberOfShapes, card2.numberOfShapes, card3.numberOfShapes]
             return colorsSet.count != 2 && shapeSet.count != 2 && shadingSet.count != 2 && numberOfShapesSet.count != 2
         }
@@ -55,8 +55,8 @@ class GameViewModel: ObservableObject {
         model.addNewCards()
     }
     
-    var isShowMatchingResult: Bool {
-        model.selectedCardsIndex.count == 3
+    var isShowMatchStatus: Bool {
+        model.isMatchStatus
     }
     
     func newGame() {
@@ -66,16 +66,14 @@ class GameViewModel: ObservableObject {
 }
 
 extension Color {
-    init(_ name: String) {
-        switch name {
-        case "mint":
+    init(_ color: SetGame.SetColor) {
+        switch color {
+        case .mint:
             self = Color.mint
-        case "purple":
+        case .purple:
             self = Color.purple
-        case "blue":
+        case .blue:
             self = Color.blue
-        default:
-            self = Color.white
         }
     }
 }
