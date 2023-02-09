@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		760A6B16299505960074186D /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760A6B15299505960074186D /* AspectVGrid.swift */; };
+		760A6B1A29957F740074186D /* ToDoList in Resources */ = {isa = PBXBuildFile; fileRef = 760A6B1929957F740074186D /* ToDoList */; };
 		760DA0EC298EBDCC00069C1D /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0EB298EBDCC00069C1D /* GameModel.swift */; };
 		760DA0EE298EBFAF00069C1D /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0ED298EBFAF00069C1D /* GameViewModel.swift */; };
 		760DA0F0298EC9C900069C1D /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0EF298EC9C900069C1D /* SetGame.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		760A6B15299505960074186D /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
+		760A6B1929957F740074186D /* ToDoList */ = {isa = PBXFileReference; lastKnownFileType = text; path = ToDoList; sourceTree = "<group>"; };
 		760DA0EB298EBDCC00069C1D /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		760DA0ED298EBFAF00069C1D /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		760DA0EF298EC9C900069C1D /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				760DA0ED298EBFAF00069C1D /* GameViewModel.swift */,
 				760DA0EB298EBDCC00069C1D /* GameModel.swift */,
 				760DA0EF298EC9C900069C1D /* SetGame.swift */,
+				760A6B1929957F740074186D /* ToDoList */,
 				760DA0FA299160E900069C1D /* Shapes */,
 				76D76538298AEC2E001B6C2E /* Assets.xcassets */,
 				76D7653A298AEC2E001B6C2E /* Preview Content */,
@@ -159,6 +162,7 @@
 			files = (
 				76D7653C298AEC2E001B6C2E /* Preview Assets.xcassets in Resources */,
 				76D76539298AEC2E001B6C2E /* Assets.xcassets in Resources */,
+				760A6B1A29957F740074186D /* ToDoList in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
