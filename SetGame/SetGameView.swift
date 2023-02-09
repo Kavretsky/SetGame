@@ -12,30 +12,38 @@ struct SetGameView: View {
     
     var body: some View {
         NavigationView{
+            gameContent()
+                .navigationTitle("Set Game")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .bottomBar) {
+                        Button(game.canAdd3Cards ? "Deal 3 more cards" : "No more cards in deck") {
+                            game.add3Cards()
+                        }
+                        .disabled(!game.canAdd3Cards)
+                    }
+                    ToolbarItem(placement: .cancellationAction) {
+                        Text("Score: \(game.score)")
+                    }
+                    ToolbarItem(placement: .automatic) {
+                        Button("New game") {
+                            game.newGame()
+                        }
+                    }
+                }
+        }
+    }
+    
+    @ViewBuilder func gameContent() -> some View {
+        if !game.isTheEnd {
             AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
                 CardView(card: card, isShowMatchingResult: game.isShowMatchStatus)
                     .onTapGesture {
                         game.chose(card)
                     }
             }
-            .navigationTitle("Set Game")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    Button(game.canAdd3Cards ? "Deal 3 more cards" : "No more cards in deck") {
-                        game.add3Cards()
-                    }
-                    .disabled(!game.canAdd3Cards)
-                }
-                ToolbarItem(placement: .cancellationAction) {
-                    Text("Score: \(game.score)")
-                }
-                ToolbarItem(placement: .automatic) {
-                    Button("New game") {
-                        game.newGame()
-                    }
-                }
-            }
+        } else {
+            Text("The end!").font(.largeTitle)
         }
     }
 }

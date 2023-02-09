@@ -15,10 +15,10 @@ struct SetGame {
         var shading: SetShading
     }
     
-    private let setColors: [SetColor] = [.mint, .purple, .blue]
-    private let setShapes: [SetShape] = [.diamond, .oval, .squiggle]
+    private let setColors: [SetColor] = [.mint, .blue]
+    private let setShapes: [SetShape] = [.diamond]
     private let setNumbersOfShapes = [1, 2 , 3]
-    private let setShading: [SetShading] = [.fill, .open, .striped]
+    private let setShading: [SetShading] = [.fill]
     
     private(set) var content: [CardContent]
     

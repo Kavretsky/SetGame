@@ -58,6 +58,9 @@ class GameViewModel: ObservableObject {
     var isShowMatchStatus: Bool {
         model.isMatchStatus
     }
+    var isTheEnd: Bool {
+        model.isTheEnd
+    }
     
     func newGame() {
         self.game = SetGame()
