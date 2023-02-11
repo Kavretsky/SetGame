@@ -1,5 +1,5 @@
 //
-//  SetGameView.swift
+//  GameView.swift
 //  SetGame
 //
 //  Created by Nikolay Kavretsky on 01.02.2023.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct SetGameView: View {
+struct GameView: View {
     @ObservedObject var game: GameViewModel
     
     var body: some View {
-        NavigationView{
+        NavigationStack{
             gameContent()
                 .navigationTitle("Set Game")
                 .navigationBarTitleDisplayMode(.inline)
@@ -34,7 +34,7 @@ struct SetGameView: View {
         }
     }
     
-    @ViewBuilder func gameContent() -> some View {
+    @ViewBuilder private func gameContent() -> some View {
         if !game.isTheEnd {
             AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
                 CardView(card: card, isShowMatchingResult: game.isShowMatchStatus)
@@ -50,6 +50,6 @@ struct SetGameView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SetGameView(game:GameViewModel())
+        GameView(game:GameViewModel())
     }
 }

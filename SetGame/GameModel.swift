@@ -83,7 +83,7 @@ struct GameModel<CardContent: Equatable> {
             cards.append(Card(id: index, content: content))
         }
         cards.shuffle()
-        for _ in 0..<numberOfCards {
+        for _ in 0..<12 {
             cardsOnBoard.append(cards.removeFirst())
         }
     }

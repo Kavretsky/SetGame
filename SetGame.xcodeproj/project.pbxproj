@@ -16,8 +16,9 @@
 		760DA0F52990356600069C1D /* SquiggleShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0F42990356600069C1D /* SquiggleShapeView.swift */; };
 		760DA0F72990358900069C1D /* DiamondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0F62990358900069C1D /* DiamondView.swift */; };
 		760DA0F929903C7600069C1D /* OvalShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA0F829903C7600069C1D /* OvalShapeView.swift */; };
+		760DA9172996C1060075F74C /* StripedShadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760DA9162996C1060075F74C /* StripedShadingView.swift */; };
 		76D76535298AEC2E001B6C2E /* SetGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D76534298AEC2E001B6C2E /* SetGameApp.swift */; };
-		76D76537298AEC2E001B6C2E /* SetGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D76536298AEC2E001B6C2E /* SetGameView.swift */; };
+		76D76537298AEC2E001B6C2E /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D76536298AEC2E001B6C2E /* GameView.swift */; };
 		76D76539298AEC2E001B6C2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D76538298AEC2E001B6C2E /* Assets.xcassets */; };
 		76D7653C298AEC2E001B6C2E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D7653B298AEC2E001B6C2E /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -32,9 +33,10 @@
 		760DA0F42990356600069C1D /* SquiggleShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquiggleShapeView.swift; sourceTree = "<group>"; };
 		760DA0F62990358900069C1D /* DiamondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondView.swift; sourceTree = "<group>"; };
 		760DA0F829903C7600069C1D /* OvalShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OvalShapeView.swift; sourceTree = "<group>"; };
+		760DA9162996C1060075F74C /* StripedShadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripedShadingView.swift; sourceTree = "<group>"; };
 		76D76531298AEC2E001B6C2E /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D76534298AEC2E001B6C2E /* SetGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameApp.swift; sourceTree = "<group>"; };
-		76D76536298AEC2E001B6C2E /* SetGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameView.swift; sourceTree = "<group>"; };
+		76D76536298AEC2E001B6C2E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		76D76538298AEC2E001B6C2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76D7653B298AEC2E001B6C2E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,6 +62,17 @@
 			path = Shapes;
 			sourceTree = "<group>";
 		};
+		760DA9182997AA2D0075F74C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				76D76536298AEC2E001B6C2E /* GameView.swift */,
+				760DA0F22990352300069C1D /* CardView.swift */,
+				760A6B15299505960074186D /* AspectVGrid.swift */,
+				760DA9162996C1060075F74C /* StripedShadingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		76D76528298AEC2E001B6C2E = {
 			isa = PBXGroup;
 			children = (
@@ -80,9 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				76D76534298AEC2E001B6C2E /* SetGameApp.swift */,
-				76D76536298AEC2E001B6C2E /* SetGameView.swift */,
-				760A6B15299505960074186D /* AspectVGrid.swift */,
-				760DA0F22990352300069C1D /* CardView.swift */,
+				760DA9182997AA2D0075F74C /* View */,
 				760DA0ED298EBFAF00069C1D /* GameViewModel.swift */,
 				760DA0EB298EBDCC00069C1D /* GameModel.swift */,
 				760DA0EF298EC9C900069C1D /* SetGame.swift */,
@@ -173,10 +184,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D76537298AEC2E001B6C2E /* SetGameView.swift in Sources */,
+				76D76537298AEC2E001B6C2E /* GameView.swift in Sources */,
 				760DA0F0298EC9C900069C1D /* SetGame.swift in Sources */,
 				760DA0F929903C7600069C1D /* OvalShapeView.swift in Sources */,
 				76D76535298AEC2E001B6C2E /* SetGameApp.swift in Sources */,
+				760DA9172996C1060075F74C /* StripedShadingView.swift in Sources */,
 				760DA0F72990358900069C1D /* DiamondView.swift in Sources */,
 				760DA0F52990356600069C1D /* SquiggleShapeView.swift in Sources */,
 				760DA0EC298EBDCC00069C1D /* GameModel.swift in Sources */,

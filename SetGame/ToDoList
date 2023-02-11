@@ -1,6 +1,6 @@
 Goals to do:
 1. Draw the actual squiggle instead of using a rectangle. — DONE
-2. Draw the actual striped “shading” instead of using a semi-transparent color.
+2. Draw the actual striped “shading” instead of using a semi-transparent color. — DONE
 3. Keep score somehow in your Set game. You can decide what sort of scoring would make the most sense. – DONE
 4. Give higher scores to players who choose matching Sets faster (i.e. incorporate a time component into your scoring system).
 5. Figure out how to penalize players who chose Deal 3 More Cards when a Set was actually available to be chosen.

@@ -12,7 +12,7 @@ struct SetGameApp: App {
     let game = GameViewModel()
     var body: some Scene {
         WindowGroup {
-            SetGameView(game: game)
+            GameView(game: game)
         }
     }
 }

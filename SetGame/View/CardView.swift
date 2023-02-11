@@ -15,19 +15,13 @@ struct CardView: View {
         GeometryReader { geometry in
             ZStack {
                 RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
-                    .fill().foregroundColor(card.isSelected ? Color(card.content.color) : .white)
+                    .foregroundColor(card.isSelected ? Color(card.content.color) : .white)
                     .opacity(card.isSelected ? CardViewConstants.stripedOpacityValue : 1)
                 RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
                     .strokeBorder(Color(card.content.color), lineWidth: CardViewConstants.lineWidth, antialiased: false)
                 VStack(spacing: CardViewConstants.itemSpacing) {
                     ForEach(0..<card.content.numberOfShapes, id: \.self) { _ in
-                        ZStack {
-                            AnyShape(cardShape)
-                                .fill(card.content.shading != .open ? Color(card.content.color) : .white)
-                                .opacity(card.content.shading != .striped ? 1 : CardViewConstants.stripedOpacityValue)
-                            AnyShape(cardShape)
-                                .stroke(Color(card.content.color), lineWidth: CardViewConstants.lineWidth)
-                        }
+                        filledCardShape
                         .aspectRatio(CardViewConstants.contentAspectRatio, contentMode: .fit)
                     }
                 }
@@ -41,7 +35,7 @@ struct CardView: View {
         }
     }
     
-    var cardShape: any Shape {
+    private var cardShape: any Shape {
         switch card.content.shape {
         case .squiggle:
             return Squiggle()
@@ -49,8 +43,22 @@ struct CardView: View {
             return Oval()
         case .diamond :
             return Diamond()
-            
+
         }
+    }
+    
+    @ViewBuilder private var filledCardShape: some View {
+        switch card.content.shading {
+        case .striped:
+            StripedShadingView(shape: AnyShape(cardShape), color: Color(card.content.color))
+        case .open:
+            AnyShape(cardShape)
+                .stroke(Color(card.content.color), lineWidth: CardViewConstants.lineWidth)
+        case .fill:
+            AnyShape(cardShape)
+                .fill(Color(card.content.color))
+        }
+        
     }
     
 }
@@ -58,7 +66,7 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(card: .init(id: 1, content: .init(color: .mint, shape: .oval, numberOfShapes: 2, shading: .fill)), isShowMatchingResult: true)
+        CardView(card: .init(id: 1, content: .init(color: .mint, shape: .oval, numberOfShapes: 2, shading: .striped)), isShowMatchingResult: true)
     }
 }
 
