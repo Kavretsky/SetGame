@@ -13,21 +13,50 @@ struct GameView: View {
     var body: some View {
         NavigationStack{
             gameContent()
-                .navigationTitle("Set Game")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
-                        Button(game.canAdd3Cards ? "Deal 3 more cards" : "No more cards in deck") {
-                            game.add3Cards()
-                        }
-                        .disabled(!game.canAdd3Cards)
+                    if game.canAdd3Cards {
+                        ToolbarItem(placement: .bottomBar) {
+                            Button("Deal 3 more cards") {
+                                game.add3Cards()
+                            }
+                        } 
                     }
                     ToolbarItem(placement: .cancellationAction) {
                         Text("Score: \(game.score)")
                     }
-                    ToolbarItem(placement: .automatic) {
-                        Button("New game") {
-                            game.newGame()
+                    ToolbarItem(placement: .primaryAction) {
+                        Menu {
+                            Button {
+                                game.getHint()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "wand.and.stars")
+                                    Text("Hint")
+                                }
+                            }
+                            Button {
+                                game.newGame()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "gamecontroller")
+                                    Text("New game")
+                                    
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle")
+                        }
+                        .menuStyle(.borderlessButton)
+                    }
+                    
+                    ToolbarItem(placement: .principal) {
+                        VStack{
+                            Text("Set game")
+                                .font(.headline)
+                            Text(game.canAdd3Cards ? "\(game.cardsInDeck) cards in deck": "No more cards in deck")
+                                .font(.caption)
+                            
                         }
                     }
                 }
@@ -38,6 +67,7 @@ struct GameView: View {
         if !game.isTheEnd {
             AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
                 CardView(card: card, isShowMatchingResult: game.isShowMatchStatus)
+                    .shadow(radius: game.hintCardIDs.contains(card.id) ? 3 : 0)
                     .onTapGesture {
                         game.chose(card)
                     }

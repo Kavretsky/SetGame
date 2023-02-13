@@ -31,6 +31,8 @@ class GameViewModel: ObservableObject {
     
     @Published private var model: GameModel<SetGame.CardContent>
     
+    private var showHint = false
+    
     var cards: [Card] {
         return model.cardsOnBoard
     }
@@ -45,10 +47,16 @@ class GameViewModel: ObservableObject {
     
     func chose(_ card: Card){
         model.chose(card)
+        if !cards.contains(where: {$0.id == card.id}) {
+            showHint = false
+        }
     }
     
     var canAdd3Cards: Bool {
         !model.cards.isEmpty
+    }
+    var cardsInDeck: Int {
+        model.cards.count
     }
     
     func add3Cards() {
@@ -59,13 +67,26 @@ class GameViewModel: ObservableObject {
         model.isMatchStatus
     }
     var isTheEnd: Bool {
-        model.isTheEnd
+        !model.cardsOnBoard.contains(where: {!$0.isMatched})
     }
     
     func newGame() {
         self.game = SetGame()
         self.model = GameViewModel.createGame(cardContent: game.content)
     }
+    
+    var hintCardIDs: [Int] {
+        print(model.hintCardIDs)
+        return showHint ? model.hintCardIDs : []
+    }
+    
+    func getHint() {
+        print("getHint")
+        model.findMatchingCardIDs()
+        showHint = true
+    }
+    
+    
 }
 
 extension Color {
