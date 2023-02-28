@@ -8,26 +8,29 @@
 import Foundation
 
 struct GameModel<CardContent: Equatable> {
-    private(set) var cards: [Card]
-    private(set) var cardsOnBoard: [Card]
+    private(set) var deck: [Card]
+    private(set) var board: [Card]
+    private(set) var matchedCards: [Card]
     @NonNegative private(set) var score: Int
     private(set) var hintCardIDs: [Int] = []
     
     private let isCardsContentMatch: (CardContent, CardContent, CardContent) -> Bool
     
     var selectedCardsIndex: [Int] {
-        cardsOnBoard.indices.filter({cardsOnBoard[$0].isSelected})
+        board.indices.filter({board[$0].isSelected})
     }
     
     mutating func addNewCards() {
-        guard !cards.isEmpty else { return }
-        if isMatchStatus, cardsOnBoard.first(where: {$0.isMatched == true}) != nil {
+        guard !deck.isEmpty else { return }
+        if isMatchStatus, board.first(where: {$0.isMatched == true}) != nil {
             for index in selectedCardsIndex {
-                cardsOnBoard[index] = cards.removeFirst()
+                board[index].isSelected = false
+                matchedCards.insert(board[index], at: matchedCards.startIndex)
+                board[index] = deck.removeFirst()
             }
         } else {
             for _ in 0..<3 {
-                cardsOnBoard.append(cards.removeFirst())
+                board.append(deck.removeFirst())
             }
             score -= 1
         }
@@ -38,11 +41,11 @@ struct GameModel<CardContent: Equatable> {
     }
     
     mutating func findMatchingCardIDs() {
-        for firstCardIndex in 0..<(cardsOnBoard.endIndex - 2) {
-            for secondCardIndex in (firstCardIndex + 1)..<(cardsOnBoard.endIndex - 1) {
-                for thirdCardIndex in (secondCardIndex + 1)..<cardsOnBoard.endIndex {
-                    if isCardsContentMatch(cardsOnBoard[firstCardIndex].content,cardsOnBoard[secondCardIndex].content,cardsOnBoard[thirdCardIndex].content) {
-                        hintCardIDs = [cardsOnBoard[firstCardIndex].id, cardsOnBoard[secondCardIndex].id, cardsOnBoard[thirdCardIndex].id]
+        for firstCardIndex in 0..<(board.endIndex - 2) {
+            for secondCardIndex in (firstCardIndex + 1)..<(board.endIndex - 1) {
+                for thirdCardIndex in (secondCardIndex + 1)..<board.endIndex {
+                    if isCardsContentMatch(board[firstCardIndex].content,board[secondCardIndex].content,board[thirdCardIndex].content) {
+                        hintCardIDs = [board[firstCardIndex].id, board[secondCardIndex].id, board[thirdCardIndex].id]
                         return
                     }
                     
@@ -53,8 +56,8 @@ struct GameModel<CardContent: Equatable> {
     }
     
     mutating func chose(_ card: Card) {
-        guard var chosenIndex = cardsOnBoard.firstIndex(where: {$0.id == card.id}),
-            !cardsOnBoard[chosenIndex].isMatched
+        guard var chosenIndex = board.firstIndex(where: {$0.id == card.id}),
+            !board[chosenIndex].isMatched
         else {
             addNewCards()
             return
@@ -62,10 +65,10 @@ struct GameModel<CardContent: Equatable> {
         if selectedCardsIndex.count == 2 {
             let secondSelectedCardIndex = selectedCardsIndex.last!
             let firstSelectedCardIndex = selectedCardsIndex.first!
-            if isCardsContentMatch(cardsOnBoard[chosenIndex].content, cardsOnBoard[secondSelectedCardIndex].content, cardsOnBoard[firstSelectedCardIndex].content) {
-                cardsOnBoard[chosenIndex].isMatched = true
-                cardsOnBoard[secondSelectedCardIndex].isMatched = true
-                cardsOnBoard[firstSelectedCardIndex].isMatched = true
+            if isCardsContentMatch(board[chosenIndex].content, board[secondSelectedCardIndex].content, board[firstSelectedCardIndex].content) {
+                board[chosenIndex].isMatched = true
+                board[secondSelectedCardIndex].isMatched = true
+                board[firstSelectedCardIndex].isMatched = true
                 score += 1
             } else {
                 score -= 1
@@ -73,32 +76,29 @@ struct GameModel<CardContent: Equatable> {
         } else if selectedCardsIndex.count == 3 {
             repeat {
                 let index = selectedCardsIndex.first!
-                cardsOnBoard[index].isSelected = false
-                if cardsOnBoard[index].isMatched {
-                    if !cards.isEmpty {
-                        cardsOnBoard[index] = cards.removeFirst()
-                    } else {
-                        cardsOnBoard.remove(at: index)
-                    }
+                board[index].isSelected = false
+                if board[index].isMatched {
+                    matchedCards.insert(board.remove(at: index), at: matchedCards.startIndex)
                 }
             } while !selectedCardsIndex.isEmpty
-            chosenIndex = cardsOnBoard.firstIndex(where: {$0.id == card.id})!
+            chosenIndex = board.firstIndex(where: {$0.id == card.id})!
         }
-        cardsOnBoard[chosenIndex].isSelected.toggle()
+        board[chosenIndex].isSelected.toggle()
     }
     
     init(numberOfCards: Int, createCardContent: (Int) -> CardContent, cardsMatchRule: @escaping (CardContent, CardContent, CardContent) -> Bool) {
         self.isCardsContentMatch = cardsMatchRule
-        cards = []
-        cardsOnBoard = []
+        deck = []
+        board = []
+        matchedCards = []
         score = 0
         for index in 0..<numberOfCards {
             let content = createCardContent(index)
-            cards.append(Card(id: index, content: content))
+            deck.append(Card(id: index, content: content))
         }
-        cards.shuffle()
+        deck.shuffle()
         for _ in 0..<12 {
-            cardsOnBoard.append(cards.removeFirst())
+            board.append(deck.removeFirst())
         }
     }
     

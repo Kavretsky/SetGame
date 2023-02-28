@@ -34,6 +34,7 @@
 		760DA0F62990358900069C1D /* DiamondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondView.swift; sourceTree = "<group>"; };
 		760DA0F829903C7600069C1D /* OvalShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OvalShapeView.swift; sourceTree = "<group>"; };
 		760DA9162996C1060075F74C /* StripedShadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripedShadingView.swift; sourceTree = "<group>"; };
+		7646FBB029A6A5C80058F98F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		76D76531298AEC2E001B6C2E /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D76534298AEC2E001B6C2E /* SetGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameApp.swift; sourceTree = "<group>"; };
 		76D76536298AEC2E001B6C2E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 		76D76533298AEC2E001B6C2E /* SetGame */ = {
 			isa = PBXGroup;
 			children = (
+				7646FBB029A6A5C80058F98F /* Info.plist */,
 				76D76534298AEC2E001B6C2E /* SetGameApp.swift */,
 				760DA9182997AA2D0075F74C /* View */,
 				760DA0ED298EBFAF00069C1D /* GameViewModel.swift */,
@@ -326,7 +328,7 @@
 				DEVELOPMENT_TEAM = C27NM5L469;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = SetGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -355,7 +357,7 @@
 				DEVELOPMENT_TEAM = C27NM5L469;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = SetGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

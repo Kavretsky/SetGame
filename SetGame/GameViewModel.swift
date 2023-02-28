@@ -33,8 +33,8 @@ class GameViewModel: ObservableObject {
     
     private var showHint = false
     
-    var cards: [Card] {
-        return model.cardsOnBoard
+    var board: [Card] {
+        return model.board
     }
     var score: Int {
         model.score
@@ -47,19 +47,26 @@ class GameViewModel: ObservableObject {
     
     func chose(_ card: Card){
         model.chose(card)
-        if !cards.contains(where: {$0.id == card.id}) {
+        if !board.contains(where: {$0.id == card.id}) {
             showHint = false
         }
     }
     
-    var canAdd3Cards: Bool {
-        !model.cards.isEmpty
+    var canDeal3Cards: Bool {
+        !model.deck.isEmpty
     }
-    var cardsInDeck: Int {
-        model.cards.count
+//    var cardsInDeck: Int {
+//        model.deck.count
+//    }
+    var deck: [Card] {
+        model.deck
     }
     
-    func add3Cards() {
+    var discardPile: [Card] {
+        model.matchedCards
+    }
+    
+    func deal3MoreCards() {
         model.addNewCards()
     }
     
@@ -67,7 +74,7 @@ class GameViewModel: ObservableObject {
         model.isMatchStatus
     }
     var isTheEnd: Bool {
-        !model.cardsOnBoard.contains(where: {!$0.isMatched})
+        !model.board.contains(where: {!$0.isMatched})
     }
     
     func newGame() {
@@ -76,12 +83,10 @@ class GameViewModel: ObservableObject {
     }
     
     var hintCardIDs: [Int] {
-        print(model.hintCardIDs)
-        return showHint ? model.hintCardIDs : []
+        model.hintCardIDs
     }
     
     func getHint() {
-        print("getHint")
         model.findMatchingCardIDs()
         showHint = true
     }

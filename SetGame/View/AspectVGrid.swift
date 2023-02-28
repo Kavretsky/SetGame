@@ -17,13 +17,14 @@ struct AspectVGrid<Item, ItemView>: View  where ItemView: View, Item: Identifiab
             ScrollView {
                 HStack {
                     let width: CGFloat = widthThatFits(itemCount: items.count, in: geometry.size, itemAspectRatio: aspectRatio)
-                    LazyVGrid(columns: [adaptiveGridItem(width: width)]) {
+                    LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0) {
                         ForEach(items) { item in
                             content(item).aspectRatio(aspectRatio, contentMode: .fit)
+                                .padding(4)
                         }
                     }
                 }
-                .padding()
+//                .padding()
                 Spacer(minLength: 0)
             }
         }
@@ -31,7 +32,8 @@ struct AspectVGrid<Item, ItemView>: View  where ItemView: View, Item: Identifiab
     
     private func adaptiveGridItem(width: CGFloat) -> GridItem {
         let width1 = width < 60 ? 60 : width
-        let gridItem = GridItem(.adaptive(minimum: width1))
+        var gridItem = GridItem(.adaptive(minimum: width1))
+        gridItem.spacing = 0
         return gridItem
     }
     
@@ -39,9 +41,9 @@ struct AspectVGrid<Item, ItemView>: View  where ItemView: View, Item: Identifiab
             var columnCount = 1
             var rowCount = itemCount
             repeat {
-                let itemWidth = (size.width + 42)  / CGFloat(columnCount)
+                let itemWidth = (size.width)  / CGFloat(columnCount)
                 let itemHeight = itemWidth / itemAspectRatio
-                if  CGFloat(rowCount) * itemHeight < (size.height - 120) {
+                if  CGFloat(rowCount) * itemHeight < (size.height) {
                     break
                 }
                 columnCount += 1

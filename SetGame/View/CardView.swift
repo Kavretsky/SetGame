@@ -7,31 +7,65 @@
 
 import SwiftUI
 
-struct CardView: View {
+struct CardView: View, Animatable {
+    
+    var animatableData: Double {
+        get {
+            print( rotation )
+            return rotation
+        }
+        set {
+            print("set: \(rotation) ")
+            rotation = newValue
+        }
+    }
+    
     let card: GameViewModel.Card
     let isShowMatchingResult: Bool
+    @State var rotation: Double = 0
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
-                    .foregroundColor(card.isSelected ? Color(card.content.color) : .white)
-                    .opacity(card.isSelected ? CardViewConstants.stripedOpacityValue : 1)
-                RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
-                    .strokeBorder(Color(card.content.color), lineWidth: CardViewConstants.lineWidth, antialiased: false)
-                VStack(spacing: CardViewConstants.itemSpacing) {
-                    ForEach(0..<card.content.numberOfShapes, id: \.self) { _ in
-                        filledCardShape
-                        .aspectRatio(CardViewConstants.contentAspectRatio, contentMode: .fit)
-                    }
-                }
-                .padding(geometry.size.height * CardViewConstants.shapesPaddingRatio)
-                if isShowMatchingResult && card.isSelected {
+                if rotation < 90 {
                     RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
-                        .fill(card.isMatched ? .green : .red)
-                        .opacity(0.8)
+                        .foregroundColor(.green)
+                } else {
+                    
+                    RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
+                        .foregroundColor(card.isSelected ? Color(card.content.color) : .white)
+                        .opacity(card.isSelected ? CardViewConstants.stripedOpacityValue : 1)
+                    
+                    RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
+                        .strokeBorder(Color(card.content.color), lineWidth: CardViewConstants.lineWidth, antialiased: false)
+                    if isShowMatchingResult && card.isSelected {
+                        RoundedRectangle(cornerRadius: CardViewConstants.cornerRadius)
+                            .fill(card.isMatched ? .green : .red)
+                            .opacity(0.5)
+                    }
+                    VStack(spacing: CardViewConstants.itemSpacing) {
+                        ForEach(0..<card.content.numberOfShapes, id: \.self) { _ in
+                            filledCardShape
+                                .aspectRatio(CardViewConstants.contentAspectRatio, contentMode: .fit)
+                                .rotationEffect(Angle(degrees: Double(card.isMatched ? 360 : 0)))
+                                .scaleEffect(!card.isMatched && isShowMatchingResult && card.isSelected ? CardViewConstants.negativeScaleEffect : 1)
+                                .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: card.isMatched)
+                        }
+                    }
+                    .animation(nil, value: rotation)
+                    .padding(geometry.size.height * CardViewConstants.shapesPaddingRatio)
+                }
+                    
+                
+            }
+            
+            .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
+            .onAppear {
+                withAnimation(.linear(duration: 0.5)){
+                    rotation = 180
                 }
             }
+            
         }
     }
     
@@ -63,7 +97,6 @@ struct CardView: View {
     
 }
 
-
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         CardView(card: .init(id: 1, content: .init(color: .mint, shape: .oval, numberOfShapes: 2, shading: .striped)), isShowMatchingResult: true)
@@ -77,4 +110,5 @@ private struct CardViewConstants {
     static let shapesPaddingRatio: CGFloat = 0.1
     static let stripedOpacityValue: Double = 0.3
     static let contentAspectRatio: CGFloat = 3
+    static let negativeScaleEffect: CGFloat = 0.7
 }
